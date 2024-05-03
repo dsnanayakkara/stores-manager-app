@@ -1,6 +1,7 @@
 <div *ngIf="!isLoading && stores">
-    <h2>List of Stores</h2>
-    <div class="restaurant-list">  <div *ngFor="let store of stores.content" class="restaurant-list-item">  <h2>{{ store.name }}</h2>
+    <h2>Stores Manager</h2>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search Stores">
+    <div class="restaurant-list">  <div *ngFor="let store of filteredStores" class="restaurant-list-item">  <h2>{{ store.name }}</h2>
         <p>{{ store.description }}</p>
         <p>{{ store.address }}</p>
         <p>{{ store.email }}</p>

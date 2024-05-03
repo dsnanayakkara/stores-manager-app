@@ -3,6 +3,7 @@ import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { StoreserviceService } from '../../services/storeservice.service';
+import { FormsModule } from '@angular/forms';
 
 interface Store {
   name: string;
@@ -24,7 +25,7 @@ interface StoresResponse {
 @Component({
   selector: 'app-storecomponent',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, FormsModule],
   templateUrl: './storecomponent.component.html',
   styleUrl: './storecomponent.component.css'
 })
@@ -33,6 +34,7 @@ export class StorecomponentComponent {
   page: number = 0;
   size: number = 10;
   isLoading: boolean = false;
+  searchQuery: string = '';
 
   constructor(private storeService: StoreserviceService, private sanitizer: DomSanitizer) { }
 
@@ -66,5 +68,17 @@ export class StorecomponentComponent {
     const imageUrl = `assets/${imageName}`;
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
+
+  get filteredStores() {
+    if (!this.stores || !this.searchQuery) {
+      return this.stores?.content;
+    }
+  
+    return this.stores.content.filter(store =>
+      store.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+      store.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+  
 
 }
