@@ -1,0 +1,56 @@
+use storeManagerDB
+
+db.stores.insertMany([
+    {
+        name: "Burger Bonanza",
+        description: "A delightful spot for burger enthusiasts.",
+        email: "contact@burgerbonanza.com",
+        image: "burger_bonanza.jpg",
+        category: { id: ObjectId('66333b98c3d28f3706f5b35c'), name: "American" },
+        address: "123 Burger Lane",
+        geolocation: { type: "Point", coordinates: [-74.005941, 40.712784] },
+        humanReadableAddress: "123 Burger Lane, New York, NY"
+    },
+    {
+        name: "Pasta Palace",
+        description: "Authentic Italian pasta dishes.",
+        email: "info@pastapalace.com",
+        image: "pasta_palace.jpg",
+        category: { id: ObjectId('66333b98c3d28f3706f5b35d'), name: "Italian" },
+        address: "456 Pasta Street",
+        geolocation: { type: "Point", coordinates: [12.496365, 41.902783] },
+        humanReadableAddress: "456 Pasta Street, Rome, Italy"
+    },
+    {
+        name: "Sushi Symphony",
+        description: "Fresh and innovative sushi creations.",
+        email: "service@sushisymphony.com",
+        image: "sushi_symphony.jpg",
+        category: { id: ObjectId('66333b98c3d28f3706f5b35e'), name: "Japanese" },
+        address: "789 Sushi Avenue",
+        geolocation: { type: "Point", coordinates: [139.691706, 35.689487] },
+        humanReadableAddress: "789 Sushi Avenue, Tokyo, Japan"
+    },
+    {
+        name: "Taco Territory",
+        description: "A fiesta of flavors with authentic Mexican tacos.",
+        email: "orders@tacoterritory.com",
+        image: "taco_territory.jpg",
+        category: { id: ObjectId('66333b98c3d28f3706f5b35f'), name: "Mexican" },
+        address: "321 Taco Road",
+        geolocation: { type: "Point", coordinates: [-99.133208, 19.432608] },
+        humanReadableAddress: "321 Taco Road, Mexico City, Mexico"
+    },
+    {
+        name: "Curry Corner",
+        description: "Spicy and aromatic Indian dishes to delight your palate.",
+        email: "info@currycorner.com",
+        image: "curry_corner.jpg",
+        category: { id: ObjectId('66333b98c3d28f3706f5b361'), name: "Indian" },
+        address: "654 Curry Street",
+        geolocation: { type: "Point", coordinates: [77.209021, 28.613939] },
+        humanReadableAddress: "654 Curry Street, New Delhi, India"
+    }
+
+
+]);

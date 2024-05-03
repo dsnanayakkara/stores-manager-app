@@ -1,0 +1,85 @@
+// Create the Database
+use storeManagerDB
+
+// Create the 'categories' collection with predefined categories
+db.createCollection("categories");
+db.categories.insertMany([
+    { name: "American", description: "American cuisine including burgers, steaks, and fries" },
+    { name: "Italian", description: "Italian cuisine including pasta, pizza, and gelato" },
+    { name: "Japanese", description: "Japanese cuisine including sushi, ramen, and tempura" },
+    { name: "Mexican", description: "Mexican cuisine including tacos, burritos, and guacamole" },
+    { name: "Chinese", description: "Chinese cuisine including noodles, dumplings, and fried rice" },
+    { name: "Indian", description: "Indian cuisine including curry, biryani, and naan" }
+]);
+
+// Create the 'stores' collection with validation rules
+db.createCollection("stores", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["name", "email", "category", "address", "geolocation", "humanReadableAddress"],
+            properties: {
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                description: {
+                    bsonType: "string",
+                    description: "must be a string"
+                },
+                email: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                image: {
+                    bsonType: "string",
+                    description: "must be a string"
+                },
+                category: {
+                    bsonType: "object",
+                    required: ["id", "name"],
+                    properties: {
+                        id: {
+                            bsonType: "objectId",
+                            description: "must be an objectId reference to the categories collection and is required"
+                        },
+                        name: {
+                            bsonType: "string",
+                            description: "must be a string of the category name and is required"
+                        }
+                    },
+                    description: "must be an object with category ObjectId and name and is required"
+                },
+                address: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                geolocation: {
+                    bsonType: "object",
+                    required: ["type", "coordinates"],
+                    properties: {
+                        type: {
+                            enum: ["Point"],
+                            description: "must be 'Point' for GeoJSON format and is required"
+                        },
+                        coordinates: {
+                            bsonType: "array",
+                            minItems: 2,
+                            maxItems: 2,
+                            items: {
+                                bsonType: "double",
+                                description: "must be an array of two doubles [longitude, latitude] and is required"
+                            },
+                            description: "must be an array of [longitude, latitude] for GeoJSON format and is required"
+                        }
+                    },
+                    description: "must be a GeoJSON object with type 'Point' and coordinates [longitude, latitude] and is required"
+                },
+                humanReadableAddress: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                }
+            }
+        }
+    }
+});
